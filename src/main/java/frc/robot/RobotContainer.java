@@ -47,6 +47,7 @@ public class RobotContainer {
     // Subsystems
     private final Drive drive;
     private final Vision vision;
+    private final QuestNavSubsystem questNav;
 
     private SwerveDriveSimulation driveSimulation = null;
 
@@ -112,6 +113,9 @@ public class RobotContainer {
 
                 break;
         }
+
+        // QuestNav subsystem
+        questNav = new QuestNavSubsystem(drive);
 
         // Set up auto routines
         autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
