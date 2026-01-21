@@ -17,4 +17,9 @@ public class IntakeRollerSubsystem extends SubsystemBase {
     public static void outtakeCommand() {
         intakeMotor.setSpeed(RollerConstants.OUTAKE_SPEED);
     }
+
+    @Override
+    public void periodic() {
+        intakeMotor.periodic();
+    }
 }

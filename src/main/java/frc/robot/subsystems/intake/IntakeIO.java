@@ -20,4 +20,7 @@ public interface IntakeIO {
 
     default void stop() {}
     ;
+
+    default void periodic() {}
+    ;
 }

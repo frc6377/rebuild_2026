@@ -1,8 +1,10 @@
 package frc.robot.subsystems.intake;
 
 import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.KilogramMetersSquaredPerSecond;
 
 import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularMomentum;
 
 public class IntakeConstants {
     public class MotorIDs {
@@ -20,6 +22,9 @@ public class IntakeConstants {
         // TODO: Fix incorrect Constants
         public static final double INTAKE_SPEED = 0.5;
         public static final double OUTAKE_SPEED = -0.5;
+
+        public static final AngularMomentum ROLLER_MOI = KilogramMetersSquaredPerSecond.of(0.00032);
+        public static final double ROLLER_GEARING = 1.0;
     }
 
     public class PivotConstants {
