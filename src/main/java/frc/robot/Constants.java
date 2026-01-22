@@ -39,7 +39,7 @@ public final class Constants {
         public static final int SHOOTER_MOTOR = 7;
     }
 
-    public final class ShooterConstants {
+    public static final class ShooterConstants {
         public static final InvertedValue shooterOuttakeDirection = InvertedValue.Clockwise_Positive;
         public static final NeutralModeValue shooterNeutralMode = NeutralModeValue.Coast;
         public static final MotorOutputConfigs shooterMotorOutputConfigs =
