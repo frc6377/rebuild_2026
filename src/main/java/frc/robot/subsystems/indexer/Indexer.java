@@ -1,12 +1,10 @@
 package frc.robot.subsystems.indexer;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.function.DoubleSupplier;
 
-import com.ctre.phoenix6.hardware.TalonFX;
-
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-public class Indexer extends SubsystemBase{
+public class Indexer extends SubsystemBase {
     private final TalonFX indexerMotor;
 
     public Indexer() {

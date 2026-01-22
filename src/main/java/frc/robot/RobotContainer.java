@@ -35,6 +35,7 @@ import frc.robot.subsystems.indexer.Indexer;
 import frc.robot.subsystems.intake.IntakeIOReal;
 import frc.robot.subsystems.intake.IntakeIOSim;
 import frc.robot.subsystems.intake.IntakeRollerSubsystem;
+import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.vision.*;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
@@ -53,6 +54,7 @@ public class RobotContainer {
     private final Vision vision;
     private final IntakeRollerSubsystem intake;
     private final Indexer indexer = new Indexer();
+    private final Shooter shooter = new Shooter();
 
     private SwerveDriveSimulation driveSimulation = null;
 
@@ -165,6 +167,11 @@ public class RobotContainer {
         // Indexer control
         controller.rightTrigger().whileTrue(Commands.run(() -> indexer.setIndexerSpeed(() -> 1), indexer));
         controller.leftTrigger().whileTrue(Commands.run(() -> indexer.setIndexerSpeed(() -> -1), indexer));
+
+        // Shooter control
+        controller.povUp().whileTrue(Commands.run(() -> shooter.setShooterSpeed(1), shooter));
+        controller.povDown().whileTrue(Commands.run(() -> shooter.setShooterSpeed(-1), shooter));
+        controller.povLeft().whileTrue(Commands.run(() -> shooter.stopShooter(), shooter));
 
         // Reset gyro / odometry1
         final Runnable resetGyro = Constants.currentMode == Constants.Mode.SIM
