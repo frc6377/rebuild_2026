@@ -54,7 +54,7 @@ public class ShooterIOTalonFX implements ShooterIO {
         inputs.shooterPosition = position.getValue();
         inputs.shooterVelocity = velocity.getValue();
         inputs.shooterAppliedVolts = appliedVolts.getValue();
-        inputs.shooterCurrent= current.getValue();
+        inputs.shooterCurrent = current.getValue();
     }
 
     @Override
