@@ -3,7 +3,6 @@ package frc.robot.subsystems.intake;
 import static edu.wpi.first.units.Units.Volts;
 
 import com.ctre.phoenix6.hardware.TalonFX;
-import org.littletonrobotics.junction.Logger;
 
 public class IntakeIOReal implements IntakeIO {
 
@@ -14,7 +13,7 @@ public class IntakeIOReal implements IntakeIO {
     }
 
     @Override
-    public void setSpeed(double speed) {
+    public void setRollerSpeed(double speed) {
         intakeMotor.set(speed);
     }
 
@@ -24,12 +23,8 @@ public class IntakeIOReal implements IntakeIO {
     }
 
     @Override
-    public void periodic() {
-        Logger.recordOutput(
-                "Intake/RollerMotorVoltage",
-                intakeMotor.getMotorVoltage().getValue().in(Volts));
-        Logger.recordOutput(
-                "Intake/RollerMotorSpeedPercentile",
-                intakeMotor.getSupplyVoltage().getValue().in(Volts) / 12.0);
+    public void updateInputs(IntakeIO.IntakeIOInputs inputs) {
+        inputs.rollerSpeedPercentile = intakeMotor.get();
+        inputs.rollerAppliedVolts = Volts.of(intakeMotor.getMotorVoltage().getValueAsDouble());
     }
 }

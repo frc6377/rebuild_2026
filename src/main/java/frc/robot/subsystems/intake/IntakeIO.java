@@ -13,9 +13,24 @@
 
 package frc.robot.subsystems.intake;
 
+import static edu.wpi.first.units.Units.Volts;
+
+import org.littletonrobotics.junction.AutoLog;
+
+import edu.wpi.first.units.measure.Voltage;
+
 public interface IntakeIO {
 
-    default void setSpeed(double speed) {}
+    @AutoLog
+    class IntakeIOInputs {
+        public double rollerSpeedPercentile = 0.0;
+        public Voltage rollerAppliedVolts = Volts.of(0.0);
+
+    }
+
+    default void updateInputs(IntakeIOInputs inputs) {}
+
+    default void setRollerSpeed(double speed) {}
     ;
 
     default void stop() {}

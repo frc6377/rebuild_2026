@@ -14,9 +14,7 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
-import static edu.wpi.first.units.Units.Degrees;
 import static frc.robot.subsystems.vision.VisionConstants.*;
-import static frc.robot.subsystems.vision.VisionConstants.robotToCamera1;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -33,9 +31,10 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.drive.*;
 import frc.robot.subsystems.intake.IntakeIOReal;
 import frc.robot.subsystems.intake.IntakeIOSim;
-import frc.robot.subsystems.intake.IntakeRollerSubsystem;
+import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.vision.*;
 import org.ironmaple.simulation.SimulatedArena;
+import org.ironmaple.simulation.drivesims.AbstractDriveTrainSimulation;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
 import org.ironmaple.simulation.seasonspecific.reefscape2025.ReefscapeCoralOnFly;
 import org.littletonrobotics.junction.Logger;
@@ -50,7 +49,7 @@ public class RobotContainer {
     // Subsystems
     private final Drive drive;
     private final Vision vision;
-    private final IntakeRollerSubsystem intake;
+    private final Intake intake;
 
     private SwerveDriveSimulation driveSimulation = null;
 
@@ -65,7 +64,7 @@ public class RobotContainer {
         switch (Constants.currentMode) {
             case REAL:
                 // Real robot, instantiate hardware IO implementations
-                intake = new IntakeRollerSubsystem(new IntakeIOReal());
+                intake = new Intake(new IntakeIOReal());
                 drive = new Drive(
                         new GyroIOPigeon2(),
                         new ModuleIOTalonFXReal(TunerConstants.FrontLeft),
@@ -82,7 +81,9 @@ public class RobotContainer {
 
             case SIM:
                 // Sim robot, instantiate physics sim IO implementations
-                intake = new IntakeRollerSubsystem(new IntakeIOSim());
+
+                //TODO:Add AbstractDriveTrainSimulation to IntakeIOSim
+                intake = new Intake(new IntakeIOSim());
                 driveSimulation = new SwerveDriveSimulation(Drive.mapleSimConfig, new Pose2d(3, 3, new Rotation2d()));
                 SimulatedArena.getInstance().addDriveTrainSimulation(driveSimulation);
                 drive = new Drive(
@@ -115,8 +116,7 @@ public class RobotContainer {
                         new ModuleIO() {},
                         (pose) -> {});
                 vision = new Vision(drive, new VisionIO() {}, new VisionIO() {});
-                intake = new IntakeRollerSubsystem(new IntakeIOReal());
-
+                intake = new Intake(new IntakeIOReal());
                 break;
         }
 
