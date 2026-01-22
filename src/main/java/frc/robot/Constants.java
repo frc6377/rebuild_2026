@@ -35,7 +35,7 @@ public final class Constants {
         SIM,
     }
 
-    public final class CANIDs {
+    public static final class CANIDs {
         public static final int SHOOTER_MOTOR = 7;
     }
 
