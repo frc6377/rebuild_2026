@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.drive.*;
+import frc.robot.subsystems.indexer.Indexer;
 import frc.robot.subsystems.intake.IntakeIOReal;
 import frc.robot.subsystems.intake.IntakeIOSim;
 import frc.robot.subsystems.intake.IntakeRollerSubsystem;
@@ -51,6 +52,7 @@ public class RobotContainer {
     private final Drive drive;
     private final Vision vision;
     private final IntakeRollerSubsystem intake;
+    private final Indexer indexer = new Indexer();
 
     private SwerveDriveSimulation driveSimulation = null;
 
@@ -156,7 +158,15 @@ public class RobotContainer {
         // Switch to X pattern when X button is pressed
         controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
 
-        // Reset gyro / odometry
+        // Intake control
+        controller.rightBumper().whileTrue(Commands.run(() -> intake.intakeCommand(), intake));
+        controller.leftBumper().whileTrue(Commands.run(() -> intake.outtakeCommand(), intake));
+
+        // Indexer control
+        controller.rightTrigger().whileTrue(Commands.run(() -> indexer.setIndexerSpeed(() -> 1), indexer));
+        controller.leftTrigger().whileTrue(Commands.run(() -> indexer.setIndexerSpeed(() -> -1), indexer));
+
+        // Reset gyro / odometry1
         final Runnable resetGyro = Constants.currentMode == Constants.Mode.SIM
                 ? () -> drive.setPose(
                         driveSimulation.getSimulatedDriveTrainPose()) // reset odometry to actual robot pose during
