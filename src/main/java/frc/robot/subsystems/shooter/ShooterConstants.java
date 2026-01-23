@@ -1,5 +1,8 @@
 package frc.robot.subsystems.shooter;
 
+import static edu.wpi.first.units.Units.Amps;
+
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -12,7 +15,8 @@ public final class ShooterConstants {
     public static final NeutralModeValue shooterNeutralMode = NeutralModeValue.Coast;
     public static final MotorOutputConfigs shooterMotorOutputConfigs =
             new MotorOutputConfigs().withInverted(shooterOuttakeDirection).withNeutralMode(shooterNeutralMode);
-
+    public static final CurrentLimitsConfigs shooterCurrentLimitsConfigs =
+            new CurrentLimitsConfigs().withStatorCurrentLimit(Amps.of(40));
     // PID gains for velocity control (Slot0)
     // kP: Proportional gain - output per unit of error in velocity
     // kI: Integral gain - output per unit of integrated error
@@ -24,7 +28,8 @@ public final class ShooterConstants {
     public static final PIDController shooterSimPIDController = new PIDController(0.1, 0.0, 0.0);
     public static final TalonFXConfiguration shooterTalonFXConfiguration = new TalonFXConfiguration()
             .withMotorOutput(shooterMotorOutputConfigs)
-            .withSlot0(shooterGains);
+            .withSlot0(shooterGains)
+            .withCurrentLimits(shooterCurrentLimitsConfigs);
 
     // Simulation Constants
     public static final double MOI = 0.01;
