@@ -9,8 +9,8 @@ import edu.wpi.first.units.measure.AngularMomentum;
 public class IntakeConstants {
     public class MotorIDs {
         // TODO: Fix incorrect Constants
-        public static final int PIVOT_MOTOR_ID = 0;
-        public static final int ROLLER_MOTOR_ID = 0;
+        // public static final int PIVOT_MOTOR_ID = 0;
+        public static final int ROLLER_MOTOR_ID = 7;
     }
 
     public class SensorIDs {
@@ -20,8 +20,8 @@ public class IntakeConstants {
 
     public class RollerConstants {
         // TODO: Fix incorrect Constants
-        public static final double INTAKE_SPEED = 0.5;
-        public static final double OUTAKE_SPEED = -0.5;
+        public static final double INTAKE_SPEED = 1;
+        public static final double OUTAKE_SPEED = -1;
 
         public static final AngularMomentum ROLLER_MOI = KilogramMetersSquaredPerSecond.of(0.00032);
         public static final double ROLLER_GEARING = 1.0;
