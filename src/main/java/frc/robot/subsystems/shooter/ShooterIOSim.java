@@ -65,5 +65,6 @@ public class ShooterIOSim implements ShooterIO {
     @Override
     public void stop() {
         setVoltage(Volts.of(0.0));
+        ShooterConstants.shooterSimPIDController.reset();
     }
 }
