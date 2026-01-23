@@ -23,16 +23,15 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
-import frc.robot.Constants;
 
 public class ShooterIOSim implements ShooterIO {
     private final FlywheelSim flywheelSim = new FlywheelSim(
             LinearSystemId.createFlywheelSystem(
-                    DCMotor.getKrakenX60(Constants.ShooterConstants.motorCount),
-                    Constants.ShooterConstants.MOI,
-                    Constants.ShooterConstants.gearRatio),
-            DCMotor.getKrakenX60(Constants.ShooterConstants.motorCount),
-            Constants.ShooterConstants.gearRatio);
+                    DCMotor.getFalcon500Foc(ShooterConstants.motorCount),
+                    ShooterConstants.MOI,
+                    ShooterConstants.gearRatio),
+            DCMotor.getFalcon500Foc(ShooterConstants.motorCount),
+            ShooterConstants.gearRatio);
 
     private double appliedVolts = 0.0;
 
@@ -58,7 +57,7 @@ public class ShooterIOSim implements ShooterIO {
 
     @Override
     public void setVelocity(AngularVelocity velocityRadPerSec) {
-        double output = Constants.ShooterConstants.shooterSimPIDController.calculate(
+        double output = ShooterConstants.shooterSimPIDController.calculate(
                 flywheelSim.getAngularVelocity().in(RadiansPerSecond), velocityRadPerSec.in(RadiansPerSecond));
         setVoltage(Volts.of(edu.wpi.first.math.MathUtil.clamp(output, -12.0, 12.0)));
     }

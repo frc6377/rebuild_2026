@@ -36,7 +36,6 @@ import frc.robot.subsystems.intake.IntakeIOReal;
 import frc.robot.subsystems.intake.IntakeIOSim;
 import frc.robot.subsystems.intake.IntakeRollerSubsystem;
 import frc.robot.subsystems.shooter.Shooter;
-import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.ShooterIO;
 import frc.robot.subsystems.shooter.ShooterIOSim;
 import frc.robot.subsystems.shooter.ShooterIOTalonFX;
@@ -56,7 +55,9 @@ public class RobotContainer {
     // Subsystems
     private final Drive drive;
     private final Vision vision;
-
+    private final IntakeRollerSubsystem intake;
+    private final Indexer indexer = new Indexer();
+    private final Shooter shooter;
     private SwerveDriveSimulation driveSimulation = null;
 
     // Controller
@@ -173,9 +174,9 @@ public class RobotContainer {
         controller.leftTrigger().whileTrue(Commands.run(() -> indexer.setIndexerSpeed(() -> -1), indexer));
 
         // Shooter control
-        controller.povUp().whileTrue(Commands.run(() -> shooter.setShooterSpeed(1), shooter));
-        controller.povDown().whileTrue(Commands.run(() -> shooter.setShooterSpeed(-1), shooter));
-        controller.povLeft().whileTrue(Commands.run(() -> shooter.stopShooter(), shooter));
+        controller.povUp().whileTrue(Commands.run(() -> shooter.setVelocity(RotationsPerSecond.of(300)), shooter));
+        controller.povDown().whileTrue(Commands.run(() -> shooter.setVelocity(RotationsPerSecond.of(-300)), shooter));
+        controller.povLeft().whileTrue(Commands.run(() -> shooter.stop(), shooter));
 
         // Reset gyro / odometry1
         final Runnable resetGyro = Constants.currentMode == Constants.Mode.SIM
