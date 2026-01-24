@@ -184,8 +184,3 @@ ctre_sim/
 compile_commands.json
 # Eclipse generated file for annotation processors
 .factorypath
-
-## HOWDY BOT ADDITIONS
-
-simgui-ds.json
-.vscode

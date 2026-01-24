@@ -26,7 +26,7 @@ import org.littletonrobotics.junction.AutoLog;
 
 public interface ShooterIO {
     @AutoLog
-    public static class ShooterIOInputs {
+    class ShooterIOInputs {
         public boolean shooterMotorConnected = true;
         public Angle shooterPosition = Radians.of(0.0);
         public AngularVelocity shooterVelocity = RadiansPerSecond.of(0.0);
@@ -35,14 +35,14 @@ public interface ShooterIO {
     }
 
     /** Updates the set of loggable inputs. */
-    public default void updateInputs(ShooterIOInputs inputs) {}
+    default void updateInputs(ShooterIOInputs inputs) {}
 
     /** Run the shooter motor at the specified voltage. */
-    public default void setVoltage(Voltage volts) {}
+    default void setVoltage(Voltage volts) {}
 
     /** Run the shooter motor at the specified velocity. */
-    public default void setVelocity(AngularVelocity velocity) {}
+    default void setVelocity(AngularVelocity velocity) {}
 
     /** Stop the shooter motor. */
-    public default void stop() {}
+    default void stop() {}
 }

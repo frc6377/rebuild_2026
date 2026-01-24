@@ -17,17 +17,35 @@ public final class ShooterConstants {
     public static final NeutralModeValue kShooterNeutralMode = NeutralModeValue.Coast;
     public static final MotorOutputConfigs kShooterMotorOutputConfigs =
             new MotorOutputConfigs().withInverted(kShooterOuttakeDirection).withNeutralMode(kShooterNeutralMode);
-    public static final CurrentLimitsConfigs kShooterCurrentLimitsConfigs =
-            new CurrentLimitsConfigs().withStatorCurrentLimit(Amps.of(40));
-    // PID gains for velocity control (Slot0)
+
+    // Current limits
+    public static final double kStatorCurrentLimit = 40.0;
+    public static final CurrentLimitsConfigs kShooterCurrentLimitsConfigs = new CurrentLimitsConfigs()
+            .withStatorCurrentLimit(Amps.of(kStatorCurrentLimit))
+            .withStatorCurrentLimitEnable(true);
+
+    // PID/FF gains for velocity control (Slot0) - Real Robot
     // kP: Proportional gain - output per unit of error in velocity
     // kI: Integral gain - output per unit of integrated error
     // kD: Derivative gain - output per unit of error derivative
     // kS: Static feedforward - output to overcome static friction
     // kV: Velocity feedforward - output per unit of requested velocity
+    public static final double kP = 0.1;
+    public static final double kI = 0.0;
+    public static final double kD = 0.0;
+    public static final double kS = 0.0;
+    public static final double kV = 0.12;
+
     public static final Slot0Configs kShooterGains =
-            new Slot0Configs().withKP(0.1).withKI(0).withKD(0).withKS(0).withKV(0.12);
-    public static final PIDController kShooterSimPIDController = new PIDController(0.1, 0.0, 0.0);
+            new Slot0Configs().withKP(kP).withKI(kI).withKD(kD).withKS(kS).withKV(kV);
+
+    // PID gains for simulation
+    public static final double kSimP = 0.1;
+    public static final double kSimI = 0.0;
+    public static final double kSimD = 0.0;
+
+    public static final PIDController kShooterSimPIDController = new PIDController(kSimP, kSimI, kSimD);
+
     public static final TalonFXConfiguration kShooterTalonFXConfiguration = new TalonFXConfiguration()
             .withMotorOutput(kShooterMotorOutputConfigs)
             .withSlot0(kShooterGains)

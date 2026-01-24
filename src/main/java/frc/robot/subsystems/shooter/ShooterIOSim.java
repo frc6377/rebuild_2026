@@ -23,6 +23,7 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
+import frc.robot.Robot;
 
 public class ShooterIOSim implements ShooterIO {
     private final FlywheelSim flywheelSim = new FlywheelSim(
@@ -39,11 +40,11 @@ public class ShooterIOSim implements ShooterIO {
 
     @Override
     public void updateInputs(ShooterIOInputs inputs) {
-        flywheelSim.update(0.020); // 20ms update rate
+        flywheelSim.update(Robot.defaultPeriodSecs);
 
         inputs.shooterMotorConnected = true;
         inputs.shooterPosition = inputs.shooterPosition.plus(
-                Radians.of(flywheelSim.getAngularVelocity().in(RadiansPerSecond) * 0.020));
+                Radians.of(flywheelSim.getAngularVelocity().in(RadiansPerSecond) * Robot.defaultPeriodSecs));
         inputs.shooterVelocity = flywheelSim.getAngularVelocity();
         inputs.shooterAppliedVolts = Volts.of(appliedVolts);
         inputs.shooterCurrent = Amps.of(flywheelSim.getCurrentDrawAmps());
