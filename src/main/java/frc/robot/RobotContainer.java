@@ -47,7 +47,6 @@ public class RobotContainer {
     // Subsystems
     private final Drive drive;
     private final Vision vision;
-    private final QuestNavSubsystem questNav;
 
     private SwerveDriveSimulation driveSimulation = null;
 
@@ -112,11 +111,11 @@ public class RobotContainer {
                 vision = new Vision(drive, new VisionIO() {}, new VisionIO() {});
 
                 break;
-        }       
+        }
 
-        // QuestNav subsystem
-        questNav = new QuestNavSubsystem(drive);
-        questNav.setStartPose(vision.getStartingPoseFromLimelight()); // TODO: check if this works
+        // Configure QuestNav: set starting pose from Limelight and connect pose supplier to Drive
+        vision.setQuestNavStartPose(vision.getStartingPoseFromLimelight());
+        drive.setPoseSupplier(vision.getQuestNavPoseSupplier());
 
         // Set up auto routines
         autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());

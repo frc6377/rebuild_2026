@@ -49,14 +49,12 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants;
 import frc.robot.Constants.Mode;
 import frc.robot.generated.TunerConstants;
-import frc.robot.subsystems.vision.QuestNavSubsystem;
 import frc.robot.subsystems.vision.Vision;
 import frc.robot.util.LocalADStarAK;
-import gg.questnav.questnav.QuestNav;
-
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import org.ironmaple.simulation.drivesims.COTS;
 import org.ironmaple.simulation.drivesims.configs.DriveTrainSimulationConfig;
 import org.ironmaple.simulation.drivesims.configs.SwerveModuleSimulationConfig;
@@ -64,8 +62,7 @@ import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class Drive extends SubsystemBase implements Vision.VisionConsumer {
-    private QuestNavSubsystem questNav;
-
+    private Supplier<Pose2d> poseSupplier;
 
     // TunerConstants doesn't include these constants, so they are declared locally
     static final double ODOMETRY_FREQUENCY =
@@ -139,7 +136,7 @@ public class Drive extends SubsystemBase implements Vision.VisionConsumer {
             ModuleIO brModuleIO,
             Consumer<Pose2d> resetSimulationPoseCallBack) {
         this.gyroIO = gyroIO;
-        this.questNav = new QuestNavSubsystem(this);
+        this.poseSupplier = this::getPose;
         this.resetSimulationPoseCallBack = resetSimulationPoseCallBack;
         modules[0] = new Module(flModuleIO, 0, TunerConstants.FrontLeft);
         modules[1] = new Module(frModuleIO, 1, TunerConstants.FrontRight);
@@ -154,8 +151,7 @@ public class Drive extends SubsystemBase implements Vision.VisionConsumer {
 
         // Configure AutoBuilder for PathPlanner
         AutoBuilder.configure(
-                questNav.getPoseSupplier(),
-                // this::getPose,
+                poseSupplier,
                 this::setPose,
                 this::getChassisSpeeds,
                 this::runVelocity,
@@ -351,6 +347,11 @@ public class Drive extends SubsystemBase implements Vision.VisionConsumer {
     public void setPose(Pose2d pose) {
         resetSimulationPoseCallBack.accept(pose);
         poseEstimator.resetPosition(rawGyroRotation, getModulePositions(), pose);
+    }
+
+    /** Sets the pose supplier used by PathPlanner AutoBuilder. */
+    public void setPoseSupplier(Supplier<Pose2d> poseSupplier) {
+        this.poseSupplier = poseSupplier;
     }
 
     /** Adds a new timestamped vision measurement. */
