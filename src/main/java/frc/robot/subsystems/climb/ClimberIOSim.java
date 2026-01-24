@@ -48,8 +48,7 @@ public class ClimberIOSim implements ClimberIO {
                     ClimbConstants.kClimbMinHeight.in(Meters),
                     ClimbConstants.kClimbMaxHeight.in(Meters),
                     ClimbConstants.kSimulateGravity,
-                    ClimbConstants.kStartHeight.in(Meters),
-                    null);
+                    ClimbConstants.kStartHeight.in(Meters));
             climbMech = mech.getRoot("root", 1, 0)
                     .append(new MechanismLigament2d("Climber Mech [0]", 1, 90, 10, new Color8Bit(Color.kBlue)));
             SmartDashboard.putData("Mech2Ds/Climber Mech", mech);
