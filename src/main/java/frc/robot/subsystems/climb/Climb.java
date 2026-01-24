@@ -8,13 +8,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-
-
 public class Climb extends SubsystemBase {
-    private ClimberIO climberIO;  
-  /** Creates a new Climb. */
+    private ClimberIO climberIO;
+    /** Creates a new Climb. */
     public Climb(ClimberIO climberIO) {
-      this.climberIO = climberIO;
+        this.climberIO = climberIO;
     }
 
     public Command climbUp() {
@@ -30,11 +28,11 @@ public class Climb extends SubsystemBase {
     }
 
     public Command extendUp() {
-      return Commands.run(() -> {});
+        return Commands.run(() -> {});
     }
 
     public Command extendDown() {
-      return Commands.run(() -> {});
+        return Commands.run(() -> {});
     }
 
     @Override
