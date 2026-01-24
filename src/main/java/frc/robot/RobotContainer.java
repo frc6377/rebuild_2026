@@ -112,7 +112,7 @@ public class RobotContainer {
                 vision = new Vision(drive, new VisionIO() {}, new VisionIO() {});
 
                 break;
-        }
+        }       
 
         // QuestNav subsystem
         questNav = new QuestNavSubsystem(drive);
