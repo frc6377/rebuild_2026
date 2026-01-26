@@ -154,20 +154,20 @@ public class RobotContainer {
     private void configureButtonBindings() {
         // Default command, normal field-relative drive
         drive.setDefaultCommand(DriveCommands.joystickDrive(
-                drive, () -> -controller.getLeftY(), () -> -controller.getLeftX(), () -> -controller.getRightX()));
+                drive, () -> controller.getLeftY(), () -> controller.getLeftX(), () -> -controller.getRightX()));
 
         // Lock to 0° when A button is held
         controller
                 .a()
                 .whileTrue(DriveCommands.joystickDriveAtAngle(
-                        drive, () -> -controller.getLeftY(), () -> -controller.getLeftX(), () -> new Rotation2d()));
+                        drive, () -> -controller.getLeftY(), () -> controller.getLeftX(), () -> new Rotation2d()));
 
         // Switch to X pattern when X button is pressed
         controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
 
         // Intake control
-        controller.rightBumper().whileTrue(Commands.run(() -> intake.intakeCommand(), intake));
-        controller.leftBumper().whileTrue(Commands.run(() -> intake.outtakeCommand(), intake));
+        controller.rightBumper().whileTrue(intake.intakeCommand());
+        controller.leftBumper().whileTrue(intake.outtakeCommand());
 
         // Indexer control
         controller.rightTrigger().whileTrue(Commands.run(() -> indexer.setIndexerSpeed(() -> 1), indexer));

@@ -1,35 +1,30 @@
 package frc.robot.subsystems.intake;
 
-import static edu.wpi.first.units.Units.Volts;
-
-import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import org.littletonrobotics.junction.Logger;
 
 public class IntakeIOReal implements IntakeIO {
 
-    public final TalonFX intakeMotor;
+    public final TalonSRX intakeMotor;
 
     public IntakeIOReal() {
-        intakeMotor = new TalonFX(IntakeConstants.MotorIDs.ROLLER_MOTOR_ID);
+        intakeMotor = new TalonSRX(IntakeConstants.MotorIDs.ROLLER_MOTOR_ID);
     }
 
     @Override
     public void setSpeed(double speed) {
-        intakeMotor.set(speed);
+        intakeMotor.set(TalonSRXControlMode.PercentOutput, speed);
     }
 
     @Override
     public void stop() {
-        intakeMotor.stopMotor();
+        intakeMotor.set(TalonSRXControlMode.PercentOutput, 0);
     }
 
     @Override
     public void periodic() {
-        Logger.recordOutput(
-                "Intake/RollerMotorVoltage",
-                intakeMotor.getMotorVoltage().getValue().in(Volts));
-        Logger.recordOutput(
-                "Intake/RollerMotorSpeedPercentile",
-                intakeMotor.getSupplyVoltage().getValue().in(Volts) / 12.0);
+        Logger.recordOutput("Intake/RollerMotorVoltage", intakeMotor.getBusVoltage());
+        Logger.recordOutput("Intake/RollerMotorSpeedPercentile", intakeMotor.getMotorOutputPercent());
     }
 }
