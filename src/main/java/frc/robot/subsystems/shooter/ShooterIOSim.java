@@ -18,6 +18,8 @@ import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
+import com.ctre.phoenix6.configs.Slot0Configs;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -33,6 +35,9 @@ public class ShooterIOSim implements ShooterIO {
                     ShooterConstants.kGearRatio),
             DCMotor.getFalcon500Foc(ShooterConstants.kMotorCount),
             ShooterConstants.kGearRatio);
+
+    private final PIDController pidController =
+            new PIDController(ShooterConstants.kSimP, ShooterConstants.kSimI, ShooterConstants.kSimD);
 
     private double appliedVolts = 0.0;
 
@@ -58,7 +63,7 @@ public class ShooterIOSim implements ShooterIO {
 
     @Override
     public void setVelocity(AngularVelocity velocityRadPerSec) {
-        double output = ShooterConstants.kShooterSimPIDController.calculate(
+        double output = pidController.calculate(
                 flywheelSim.getAngularVelocity().in(RadiansPerSecond), velocityRadPerSec.in(RadiansPerSecond));
         setVoltage(Volts.of(edu.wpi.first.math.MathUtil.clamp(output, -12.0, 12.0)));
     }
@@ -66,6 +71,15 @@ public class ShooterIOSim implements ShooterIO {
     @Override
     public void stop() {
         setVoltage(Volts.of(0.0));
-        ShooterConstants.kShooterSimPIDController.reset();
+        pidController.reset();
+    }
+
+    @Override
+    public void updatePIDConfig(Slot0Configs config) {
+        // For simulation, we use the sim-specific PID values, but we could map the Slot0 values if needed
+        // The tuning class also provides sim-specific getters if we want to use those
+        pidController.setP(config.kP);
+        pidController.setI(config.kI);
+        pidController.setD(config.kD);
     }
 }

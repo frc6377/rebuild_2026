@@ -17,6 +17,7 @@ import static frc.robot.util.PhoenixUtil.tryUntilOk;
 
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
@@ -55,7 +56,6 @@ public class ShooterIOTalonFX implements ShooterIO {
         current = shooterMotor.getStatorCurrent();
 
         BaseStatusSignal.setUpdateFrequencyForAll(50.0, position, velocity, appliedVolts, current);
-        shooterMotor.optimizeBusUtilization();
     }
 
     @Override
@@ -82,5 +82,10 @@ public class ShooterIOTalonFX implements ShooterIO {
     @Override
     public void stop() {
         shooterMotor.setControl(voltageRequest.withOutput(0.0));
+    }
+
+    @Override
+    public void updatePIDConfig(Slot0Configs config) {
+        shooterMotor.getConfigurator().apply(config);
     }
 }

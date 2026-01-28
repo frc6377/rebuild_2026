@@ -19,10 +19,10 @@ public final class ShooterConstants {
             new MotorOutputConfigs().withInverted(kShooterOuttakeDirection).withNeutralMode(kShooterNeutralMode);
 
     // Current limits
-    public static final double kStatorCurrentLimit = 40.0;
+    public static final double kStatorCurrentLimit = 80.0;
     public static final CurrentLimitsConfigs kShooterCurrentLimitsConfigs = new CurrentLimitsConfigs()
             .withStatorCurrentLimit(Amps.of(kStatorCurrentLimit))
-            .withStatorCurrentLimitEnable(true);
+            .withStatorCurrentLimitEnable(false);
 
     // PID/FF gains for velocity control (Slot0) - Real Robot
     // kP: Proportional gain - output per unit of error in velocity
@@ -30,9 +30,9 @@ public final class ShooterConstants {
     // kD: Derivative gain - output per unit of error derivative
     // kS: Static feedforward - output to overcome static friction
     // kV: Velocity feedforward - output per unit of requested velocity
-    public static final double kP = 0.1;
+    public static final double kP = 8;
     public static final double kI = 0.0;
-    public static final double kD = 0.0;
+    public static final double kD = 0.1;
     public static final double kS = 0.0;
     public static final double kV = 0.12;
 

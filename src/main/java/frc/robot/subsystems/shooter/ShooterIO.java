@@ -18,6 +18,7 @@ import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
+import com.ctre.phoenix6.configs.Slot0Configs;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
@@ -45,4 +46,7 @@ public interface ShooterIO {
 
     /** Stop the shooter motor. */
     default void stop() {}
+
+    /** Update PID/FF configuration with new values. */
+    default void updatePIDConfig(Slot0Configs config) {}
 }

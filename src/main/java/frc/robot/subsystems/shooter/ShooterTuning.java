@@ -14,7 +14,7 @@ public class ShooterTuning {
     // Keys for tuning - distance points
     private final double[] distances = {2.0, 3.0, 4.0, 5.0, 6.0};
     // Default angular velocities in rad/s for each distance
-    private final double[] defaultAngularVelocities = {50.0, 55.0, 60.0, 65.0, 70.0};
+    private final double[] defaultAngularVelocities = {240, 55.0, 60.0, 65.0, 70.0};
 
     public ShooterTuning() {
         // Initialize distance-to-velocity tuning
@@ -92,5 +92,20 @@ public class ShooterTuning {
     /** Gets the tunable stator current limit in Amps. */
     public double getStatorCurrentLimit() {
         return SmartDashboard.getNumber("ShooterTuning/StatorCurrentLimit (A)", ShooterConstants.kStatorCurrentLimit);
+    }
+
+    /**
+     * Gets the current Slot0Configs with tunable Simulation PID values from SmartDashboard. We pack Sim PIDs into
+     * Slot0Configs for interface consistency.
+     *
+     * @return Slot0Configs with current tuned simulation values.
+     */
+    public Slot0Configs getSimSlot0Configs() {
+        return new Slot0Configs()
+                .withKP(getSimKP())
+                .withKI(getSimKI())
+                .withKD(getSimKD())
+                .withKS(0.0)
+                .withKV(0.0);
     }
 }
