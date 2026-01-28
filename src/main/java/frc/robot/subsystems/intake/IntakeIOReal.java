@@ -23,6 +23,16 @@ public class IntakeIOReal implements IntakeIO {
     }
 
     @Override
+    public void start() {
+        setRollerSpeed(IntakeConstants.RollerConstants.INTAKE_SPEED);
+    }
+
+    public void outtake() {
+        setRollerSpeed(IntakeConstants.RollerConstants.OUTAKE_SPEED);
+    }
+
+
+    @Override
     public void updateInputs(IntakeIO.IntakeIOInputs inputs) {
         inputs.rollerSpeedPercentile = intakeMotor.get();
         inputs.rollerAppliedVolts = Volts.of(intakeMotor.getMotorVoltage().getValueAsDouble());

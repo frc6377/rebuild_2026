@@ -6,7 +6,10 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.sim.TalonFXSimState;
 import com.ctre.phoenix6.sim.TalonFXSimState.MotorType;
 import edu.wpi.first.wpilibj.RobotController;
+import frc.robot.subsystems.intake.IntakeConstants.RollerConstants;
+
 import org.ironmaple.simulation.IntakeSimulation;
+import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.AbstractDriveTrainSimulation;
 
 public class IntakeIOSim implements IntakeIO {
@@ -26,13 +29,23 @@ public class IntakeIOSim implements IntakeIO {
     @Override
     public void setRollerSpeed(double speed) {
         intakeMotorSim.setSupplyVoltage(speed * 12);
+    }
+
+    public void start() {
+        setRollerSpeed(RollerConstants.INTAKE_SPEED);
         intakeSim.startIntake();
     }
 
     @Override
     public void stop() {
-        intakeMotorSim.setSupplyVoltage(0.0);
+        setRollerSpeed(0);
         intakeSim.stopIntake();
+    }
+
+    @Override
+    public void outtake() {
+        setRollerSpeed(RollerConstants.OUTAKE_SPEED);
+        intakeSim.removeObtainedGamePieces(SimulatedArena.getInstance());
     }
 
     @Override

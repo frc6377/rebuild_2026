@@ -81,6 +81,6 @@ public class OIXbox implements OI {
 
     @Override
     public Trigger stopIntake() {
-        return b;
+        return rightTriggerAsButton;
     }
 }

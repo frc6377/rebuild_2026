@@ -31,9 +31,11 @@ public interface IntakeIO {
     default void setRollerSpeed(double speed) {}
     ;
 
+    default void start() {}
+
     default void stop() {}
-    ;
 
     default void periodic() {}
-    ;
+    
+    default void outtake() {}
 }
