@@ -5,6 +5,7 @@ public final class BuildConstants {
     public static final String MAVEN_GROUP = "";
     public static final String MAVEN_NAME = "rebuild_2026";
     public static final String VERSION = "unspecified";
+
     public static final int GIT_REVISION = 2;
     public static final String GIT_SHA = "3da1e7bd76bd8ceac17a2f57f143ddfee77c7ebf";
     public static final String GIT_DATE = "2026-01-16 14:53:48 EST";
