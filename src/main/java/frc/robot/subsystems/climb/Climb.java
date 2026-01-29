@@ -18,15 +18,21 @@ public class Climb extends SubsystemBase {
     }
 
     public Command climbUp() {
-        return Commands.run(() -> {
+        return Commands.runEnd(
+          () -> {
             climberIO.set(1);
-        });
+          }, () -> {
+            climberIO.set(0);
+          });
     }
 
     public Command climbDown() {
-        return Commands.run(() -> {
+        return Commands.runEnd(
+          () -> {
             climberIO.set(-1);
-        });
+          }, () -> {
+            climberIO.set(0);
+          });
     }
 
     public Command extendUp() {

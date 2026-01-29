@@ -1,5 +1,6 @@
 package frc.robot.subsystems.climb;
 
+import static edu.wpi.first.units.Units.Rotations;
 import static frc.robot.util.PhoenixUtil.tryUntilOk;
 
 import com.ctre.phoenix6.controls.ControlRequest;
@@ -7,6 +8,9 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.CANIDs;
@@ -24,8 +28,8 @@ public class ClimberIOReal implements ClimberIO {
     }
 
     @Override
-    public void goToHeight(Angle height) {
-        climbMotor1.setControl(new PositionVoltage(height));
+    public void goToHeight(Distance height) {
+        climbMotor1.setControl(new PositionVoltage(height.times(ClimbConstants.kElevatorGearing).div(ClimbConstants.kElevatorDrumCircumference).times(Rotations.one())));
     }
 
     @Override
