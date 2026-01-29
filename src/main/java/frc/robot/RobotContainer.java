@@ -174,8 +174,8 @@ public class RobotContainer {
         controller.leftTrigger().whileTrue(Commands.run(() -> indexer.setIndexerSpeed(() -> -1), indexer));
 
         // Shooter control
-        controller.povUp().whileTrue(Commands.run(() -> shooter.setVelocity(RotationsPerSecond.of(300)), shooter));
-        controller.povDown().whileTrue(Commands.run(() -> shooter.setVelocity(RotationsPerSecond.of(-300)), shooter));
+        controller.povUp().whileTrue(Commands.run(() -> shooter.setVelocity(RotationsPerSecond.of(10)), shooter));
+        controller.povDown().whileTrue(Commands.run(() -> shooter.setVelocity(RotationsPerSecond.of(-30)), shooter));
         controller.povLeft().whileTrue(Commands.run(() -> shooter.stop(), shooter));
 
         // Reset gyro / odometry1

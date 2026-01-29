@@ -32,6 +32,6 @@ public final class Constants {
     }
 
     public static final class CANIDs {
-        public static final int kShooterFlywheelOneCANID = 2;
+        public static final int kShooterFlywheelOneCANID = 9;
     }
 }

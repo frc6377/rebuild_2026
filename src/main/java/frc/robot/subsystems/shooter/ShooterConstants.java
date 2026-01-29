@@ -30,11 +30,11 @@ public final class ShooterConstants {
     // kD: Derivative gain - output per unit of error derivative
     // kS: Static feedforward - output to overcome static friction
     // kV: Velocity feedforward - output per unit of requested velocity
-    public static final double kP = 8;
+    public static final double kP = 0.1;
     public static final double kI = 0.0;
-    public static final double kD = 0.1;
+    public static final double kD = 0;
     public static final double kS = 0.0;
-    public static final double kV = 0.12;
+    public static final double kV = 0;
 
     public static final Slot0Configs kShooterGains =
             new Slot0Configs().withKP(kP).withKI(kI).withKD(kD).withKS(kS).withKV(kV);

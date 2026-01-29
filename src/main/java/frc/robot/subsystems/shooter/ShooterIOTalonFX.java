@@ -39,7 +39,7 @@ public class ShooterIOTalonFX implements ShooterIO {
     private final VelocityVoltage velocityRequest = new VelocityVoltage(0.0);
 
     public ShooterIOTalonFX() {
-        shooterMotor = new TalonFX(Constants.CANIDs.kShooterFlywheelOneCANID);
+        shooterMotor = new TalonFX(Constants.CANIDs.kShooterFlywheelOneCANID, "Drive Base");
 
         // Apply configuration
         TalonFXConfiguration config = ShooterConstants.kShooterTalonFXConfiguration;
